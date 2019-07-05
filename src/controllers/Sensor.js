@@ -9,22 +9,21 @@ module.exports = {
             
             await cloud.connect();
             const devices = await cloud.getDevices();
+            console.log('devices pegos');
             const device = devices.find(device => device.name === req.params.deviceName);
-
+            console.log(device);
             if ( !device ) {
                 error(res, 'device_not_found');
             }
 
             const thing = await cloud.getData(device.id);
-            const sensor = thing.filter(
-                ({ data }) => data.sensor_id === req.body.sensorId
-            );
+            
+            res.json(thing);
 
-            if (!sensor) {
-                error(res, 'sensor_not_found');
-            }
-
-            return sensor;
+            // const sensor = thing.filter(
+            //     ({ data }) => data.sensor_id === req.body.sensorId
+            // );
+            //nao agora 
         
         } catch (err) {
             error(err);
@@ -32,6 +31,20 @@ module.exports = {
             await cloud.close();
         }
 
+    },
+
+    async writeData (req, res) {
+        try{
+
+            await cloud.connect();
+            await cloud.setData(req.params.deviceId, req.body.data);
+            res.json();
+
+        }catch(err){
+            error(err);
+        }finally{
+            cloud.close();
+        }
     },
     
 }
