@@ -1,4 +1,0 @@
-{
-    "url": "mongodb://localhost/alarm",
-    "flag": { "useNewUrlParser": "true", "useCreateIndex": "true" }
-} 
