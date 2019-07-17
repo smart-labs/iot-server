@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "prod": "node src",
-    "start": "yarn run dev"
+    "start": "nodemon src/server.js"
   },
   "prettier": {
     "trailingComma": "es5",
