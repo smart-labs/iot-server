@@ -1,10 +1,19 @@
-version: '3'
+version: "3"
 
 services:
-  server:
-    build: iot-server
-    command: yarn start
+  mongodb:
+    image: mongo
+
+  controller:
+    build: ./controller
+    command: yarn dev
     ports:
-      - '5000:5000'
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=mongodb
+      - DATABASE_NAME=iot-server
+    depends_on:
+      - mongodb
     volumes:
-      - ./iot-server:/usr/app
+      - ./controller:/usr/app
+      - /usr/app/node_modules
